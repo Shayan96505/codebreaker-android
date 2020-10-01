@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.cnm.deepdive.codebreaker.R;
+import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import java.security.SecureRandom;
@@ -25,7 +26,7 @@ private static final int CODE_LENGTH = 4;
   private EditText guess;
   private Button submit;
   private Game game;
-  private ArrayAdapter<Guess> adapter;
+  private GuessAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,7 @@ private static final int CODE_LENGTH = 4;
     submit = findViewById(R.id.submit);
     submit.setOnClickListener(this);
     game = new Game(POOL,CODE_LENGTH, new SecureRandom());
-    adapter =
-        new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<Guess>());
+    adapter = new GuessAdapter(this);
     guessList.setAdapter(adapter);
   }
 
