@@ -80,11 +80,6 @@ public class GameFragment extends Fragment implements  InputFilter{
     });
     viewModel.getSolved().observe(lifecycleOwner, solved ->
         binding.guessControls.setVisibility(solved ? View.INVISIBLE: View.VISIBLE));
-    viewModel.getThrowable().observe(lifecycleOwner, (throwable) -> {
-      if (throwable != null) {
-        Toast.makeText(activity, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-      }
-    });
   }
 
   @Override
@@ -124,7 +119,6 @@ public class GameFragment extends Fragment implements  InputFilter{
     return modifiedSource;
   }
 
-
   private void recordGuess() {
     viewModel.guess(binding.guess.getText().toString().trim().toUpperCase());
   }
@@ -136,7 +130,6 @@ public class GameFragment extends Fragment implements  InputFilter{
   private void restartGame() {
     viewModel.restartGame();
   }
-
 
   private static Map<Character, Integer> buildColorMap(char[] chars, int[] values) {
     Map<Character, Integer> colorMap = new HashMap<>();
