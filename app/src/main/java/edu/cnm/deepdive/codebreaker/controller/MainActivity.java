@@ -2,32 +2,25 @@ package edu.cnm.deepdive.codebreaker.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.renderscript.ScriptGroup.Binding;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.databinding.ActivityMainBinding;
-import edu.cnm.deepdive.codebreaker.model.Code.Guess;
-import edu.cnm.deepdive.codebreaker.model.Game;
 import edu.cnm.deepdive.codebreaker.viewmodel.MainViewModel;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity  implements InputFilter {
+
   private static final String INVALID_CHAR_PATTERN = String.format("[^%s]", MainViewModel.POOL);
   private static final int[] colorValues =
       {Color.RED, 0xffffa500, Color.YELLOW, Color.GREEN, Color.BLUE, 0xff4b0082, 0xffee82ee};
@@ -76,7 +69,7 @@ public class MainActivity extends AppCompatActivity  implements InputFilter {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
-    getMenuInflater().inflate(R.menu.options, menu);
+    getMenuInflater().inflate(R.menu.main_options, menu);
     return true;
   }
 
