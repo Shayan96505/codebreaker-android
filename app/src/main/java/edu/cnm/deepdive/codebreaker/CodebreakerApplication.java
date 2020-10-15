@@ -12,4 +12,3 @@ public class CodebreakerApplication extends Application {
     Log.d(getClass().getName(), "Testing logging");
   }
 }
-k
