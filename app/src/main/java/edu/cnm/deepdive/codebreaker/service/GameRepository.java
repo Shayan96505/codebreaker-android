@@ -11,6 +11,7 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -25,8 +26,17 @@ public class GameRepository {
     scoreDao = CodebreakerDatabase.getInstance().getScoreDao();
   }
 
-  public Completable save(Score score){
-    return Completable.fromSingle(scoreDao.insert(score))
+  public Completable save(Game game, Date timestamp, int previousGuessCount) {
+    return Single.fromCallable(() -> {
+      Score score = new Score();
+      score.setCodeLength(game.getLength());
+      score.setTimestamp(timestamp);
+      score.setGuessCount(game.getGuessCount() + previousGuessCount);
+      return score;
+    })
+        .subscribeOn(Schedulers.computation())
+        .flatMap(scoreDao::insert)
+        .ignoreElement()
         .subscribeOn(Schedulers.io());
   }
 
@@ -35,18 +45,18 @@ public class GameRepository {
         .subscribeOn(Schedulers.computation());
   }
 
-  public Completable restartGame (Game game) {
-    return  Completable.fromAction(game::restart)
+  public Completable restartGame(Game game) {
+    return Completable.fromAction(game::restart)
         .subscribeOn(Schedulers.computation());
   }
 
-  public Single<Guess> guess(Game game, String text){
-    return  Single.fromCallable(() -> game.guess(text))
+  public Single<Guess> guess(Game game, String text) {
+    return Single.fromCallable(() -> game.guess(text))
         .subscribeOn(Schedulers.computation());
   }
-
 
   public LiveData<List<ScoreSummary>> getSummaries() {
     return scoreDao.selectSummaries();
   }
+
 }
