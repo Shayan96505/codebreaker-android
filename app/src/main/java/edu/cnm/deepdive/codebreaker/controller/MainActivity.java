@@ -41,17 +41,17 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void setupNavigation(){
+  private void setupNavigation() {
     AppBarConfiguration appBarConfiguration =
         new AppBarConfiguration.Builder(R.id.navigation_game, R.id.navigation_settings)
-        .build();
+            .build();
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     navOptions = new NavOptions.Builder().
         setPopUpTo(R.id.navigation_game, false)
         .build();
     navController =
-        ((NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
+        ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
             .getNavController();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
   }
